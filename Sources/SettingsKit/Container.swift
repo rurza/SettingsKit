@@ -10,6 +10,22 @@ public struct SectionBuilder {
     public static func buildBlock(_ sections: Section...) -> [Section] {
         sections
     }
+
+    public static func buildBlock(_ sections: [Section]...) -> [Section] {
+        sections.flatMap { $0 }
+    }
+
+    public static func buildExpression(_ sections: [Section]) -> [Section] {
+        sections
+    }
+
+    public static func buildExpression(_ section: Section) -> [Section] {
+        [section]
+    }
+
+    public static func buildOptional(_ sections: [Section]?) -> [Section] {
+        sections ?? []
+    }
 }
 
 /**
