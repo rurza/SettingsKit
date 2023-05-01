@@ -60,16 +60,35 @@ struct Localization {
 			// TODO: Use `.firstNonNil()` here when available.
 			.lazy
 			.map { Locale(identifier: $0) }
-            .first { $0.language.languageCode?.identifier != nil }
+            .first {
+                if #available(macOS 13, *) {
+                    return $0.language.languageCode?.identifier != nil
+                } else {
+                    return $0.languageCode != nil
+                }
+            }
 			?? .current
 
-		guard let languageCode = preferredLocale.language.languageCode?.identifier else {
+        let languageCode: String?
+        if #available(macOS 13, *) {
+            languageCode = preferredLocale.language.languageCode?.identifier
+        } else {
+            languageCode = preferredLocale.languageCode
+        }
+		guard let languageCode else {
 			return defaultLocalizedString
 		}
 
+        let regionCode: String?
+        if #available(macOS 13, *) {
+            regionCode = preferredLocale.language.region?.identifier
+        } else {
+            regionCode = preferredLocale.regionCode
+        }
+
 		// Chinese is the only language where different region codes result in different translations.
 		if languageCode == "zh" {
-            let regionCode = preferredLocale.language.region?.identifier ?? ""
+            let regionCode = regionCode ?? ""
 			if regionCode == "HK" || regionCode == "TW" {
 				return localizedDict["\(languageCode)-\(regionCode)"]!
 			} else {
