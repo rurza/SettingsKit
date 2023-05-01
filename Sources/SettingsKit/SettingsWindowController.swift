@@ -2,6 +2,7 @@ import Cocoa
 
 public final class SettingsWindowController: NSWindowController {
     private let items: [SettingsPane]
+    private var initialTabSelection = true
 
     init(items: [SettingsPane]) {
         self.items = items
@@ -35,10 +36,12 @@ public final class SettingsWindowController: NSWindowController {
         NSApp.activate(ignoringOtherApps: true)
         showWindow(self)
         if let identifier, let item = items.first(where: { $0.paneIdentifier == identifier }) {
-            self.setContentViewForItem(item)
+            self.setContentViewForItem(item, animate: !initialTabSelection)
         } else if let item = items.first {
             self.setContentViewForItem(item, animate: false)
+            window?.toolbar?.selectedItemIdentifier = item.paneIdentifier
         }
+        initialTabSelection = false
     }
 
     private func setContentViewForItem(_ item: SettingsPane, animate: Bool = true) {
