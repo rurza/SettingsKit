@@ -46,6 +46,7 @@ public final class SettingsWindowController: NSWindowController {
             window?.toolbar?.selectedItemIdentifier = item.paneIdentifier
         }
         initialTabSelection = false
+        window?.setFrameAutosaveName(.settings)
     }
 
     private func setContentViewForItem(_ item: SettingsPane, animate: Bool = true) {
@@ -56,14 +57,10 @@ public final class SettingsWindowController: NSWindowController {
         let contentRect = NSRect(x: 0, y: 0, width: size.width, height: size.height)
         let contentFrame = window.frameRect(forContentRect: contentRect)
         let toolbarHeight = window.frame.size.height - contentFrame.size.height
-
-        window.setFrameUsingName(.settings)
-
         let newOrigin = NSPoint(x: window.frame.origin.x, y: window.frame.origin.y + toolbarHeight)
         let newFrame = NSRect(origin: newOrigin, size: contentFrame.size)
         window.setFrame(newFrame, display: true, animate: animate)
         window.contentView = item.view
-        window.setFrameAutosaveName(.settings)
     }
 }
 
