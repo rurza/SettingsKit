@@ -1,4 +1,4 @@
-import Cocoa
+import AppKit
 
 public final class SettingsWindowController: NSWindowController {
     private let items: [SettingsPane]
@@ -35,7 +35,7 @@ public final class SettingsWindowController: NSWindowController {
     public func show(pane identifier: NSToolbarItem.Identifier? = nil) {
         NSApp.activate(ignoringOtherApps: true)
         guard window?.isVisible != true else {
-            window?.makeKeyAndOrderFront(nil)
+            window?.orderFrontRegardless()
             return
         }
         showWindow(self)
