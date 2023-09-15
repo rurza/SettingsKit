@@ -33,12 +33,14 @@ public final class SettingsWindowController: NSWindowController {
     }
 
     public func show(pane identifier: NSToolbarItem.Identifier? = nil) {
-        NSApp.activate(ignoringOtherApps: true)
         guard window?.isVisible != true else {
             window?.orderFrontRegardless()
+            NSApp.activate(ignoringOtherApps: true)
             return
         }
         showWindow(self)
+        window?.orderFrontRegardless()
+        NSApp.activate(ignoringOtherApps: true)
         if let identifier, let item = items.first(where: { $0.paneIdentifier == identifier }) {
             self.setContentViewForItem(item, animate: !initialTabSelection)
         } else if let item = items.first {
