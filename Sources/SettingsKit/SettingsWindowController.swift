@@ -34,7 +34,7 @@ public final class SettingsWindowController: NSWindowController {
 
     public func show(pane identifier: NSToolbarItem.Identifier? = nil) {
         guard window?.isVisible != true else {
-
+            openWindow()
             return
         }
         if let identifier, let item = items.first(where: { $0.paneIdentifier == identifier }) {
@@ -44,7 +44,18 @@ public final class SettingsWindowController: NSWindowController {
             window?.toolbar?.selectedItemIdentifier = item.paneIdentifier
         }
         initialTabSelection = false
-        showWindow(NSApp)
+        openWindow()
+    }
+
+    func openWindow() {
+        DispatchQueue.main.async {
+            if #available(macOS 14, *) {
+                NSApp.activate()
+            } else {
+                NSApp.activate(ignoringOtherApps: true)
+            }
+            self.window?.makeKeyAndOrderFront(nil)
+        }
     }
 
     private func setContentViewForItem(_ item: SettingsPane, animate: Bool = true) {
