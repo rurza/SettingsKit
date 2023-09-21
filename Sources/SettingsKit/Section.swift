@@ -71,7 +71,7 @@ public struct Section: View {
             .eraseToAnyView() // TODO: Remove use of `AnyView`.
         self.bottomDivider = bottomDivider
         self.verticalAlignment = verticalAlignment
-        let stack = VStack(alignment: .leading) { content() }
+        let stack = VStack(alignment: .leading, spacing: 6) { content() }
         self.content = stack.eraseToAnyView()
     }
 

@@ -60,7 +60,7 @@ public struct Container: View {
     public var body: some View {
         let sections = sectionBuilder()
 
-        return VStack(alignment: .settingsSectionLabel) {
+        return VStack(alignment: .settingsSectionLabel, spacing: 14) {
             ForEach(0..<sections.count, id: \.self) { index in
                 viewForSection(sections, index: index)
             }
@@ -77,7 +77,7 @@ public struct Container: View {
         if index != sections.count - 1 && sections[index].bottomDivider {
             Divider()
                 // Strangely doesn't work without width being specified. Probably because of custom alignment.
-                .frame(width: contentWidth, height: 20)
+                .frame(width: contentWidth, height: 8)
                 .alignmentGuide(.settingsSectionLabel) { $0[.leading] + max(minimumLabelWidth, maximumLabelWidth) }
         }
     }

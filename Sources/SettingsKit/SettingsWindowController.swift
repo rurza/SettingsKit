@@ -38,6 +38,7 @@ public final class SettingsWindowController: NSWindowController {
             return
         }
         if let identifier, let item = items.first(where: { $0.paneIdentifier == identifier }) {
+            window?.toolbar?.selectedItemIdentifier = item.paneIdentifier
             self.setContentViewForItem(item, animate: !initialTabSelection)
         } else if let item = items.first {
             self.setContentViewForItem(item, animate: false)
