@@ -50,11 +50,7 @@ public final class SettingsWindowController: NSWindowController {
 
     func openWindow() {
         DispatchQueue.main.async {
-            if #available(macOS 14, *) {
-                NSApp.activate()
-            } else {
-                NSApp.activate(ignoringOtherApps: true)
-            }
+            NSRunningApplication.current.activate(options: .activateIgnoringOtherApps)
             self.window?.makeKeyAndOrderFront(nil)
         }
     }
