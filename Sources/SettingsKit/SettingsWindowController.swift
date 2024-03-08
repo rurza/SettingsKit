@@ -7,11 +7,8 @@ public final class SettingsWindowController: NSWindowController {
     init(items: [SettingsPane]) {
         self.items = items
         let window = NSWindow(contentRect: .zero, styleMask: [.closable, .titled], backing: .buffered, defer: false)
-        window.setFrameAutosaveName(.settings)
         super.init(window: window)
         configureToolbar()
-
-        window.center()
     }
 
     public convenience init(panes: [SettingsPaneConvertible]) {
@@ -49,9 +46,14 @@ public final class SettingsWindowController: NSWindowController {
     }
 
     func openWindow() {
+        guard let window else { return }
         DispatchQueue.main.async {
-            NSRunningApplication.current.activate(options: .activateIgnoringOtherApps)
-            self.window?.makeKeyAndOrderFront(nil)
+            let existingFrame = UserDefaults.standard.string(forKey: "NSWindow Frame " + NSWindow.FrameAutosaveName.settings)
+            if existingFrame == nil {
+                window.center()
+            }
+            window.setFrameAutosaveName(.settings)
+            window.makeKeyAndOrderFront(nil)
         }
     }
 
