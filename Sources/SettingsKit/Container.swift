@@ -60,7 +60,7 @@ public struct Container: View {
     public var body: some View {
         let sections = sectionBuilder()
 
-        return VStack(alignment: .settingsSectionLabel, spacing: 14) {
+        return VStack(alignment: .settingsSectionLabel, spacing: 18) {
             ForEach(0..<sections.count, id: \.self) { index in
                 viewForSection(sections, index: index)
             }
