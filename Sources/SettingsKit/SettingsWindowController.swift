@@ -1,3 +1,4 @@
+#if canImport(AppKit)
 import AppKit
 
 public final class SettingsWindowController: NSWindowController {
@@ -106,3 +107,4 @@ extension SettingsWindowController: NSToolbarDelegate {
         setContentViewForItem(item)
     }
 }
+#endif

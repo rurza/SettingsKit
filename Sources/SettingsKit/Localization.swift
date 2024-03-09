@@ -1,3 +1,4 @@
+#if canImport(AppKit)
 import Foundation
 
 struct Localization {
@@ -104,3 +105,4 @@ struct Localization {
 		return defaultLocalizedString
 	}
 }
+#endif

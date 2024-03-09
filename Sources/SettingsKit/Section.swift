@@ -1,4 +1,5 @@
 // copied from https://github.com/sindresorhus/Preferences/blob/main/Sources/Preferences/Section.swift
+#if canImport(AppKit)
 
 import SwiftUI
 
@@ -114,3 +115,4 @@ public struct Section: View {
         }
     }
 }
+#endif

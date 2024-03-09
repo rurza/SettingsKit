@@ -1,5 +1,6 @@
 // copied from https://github.com/sindresorhus/Preferences/blob/main/Sources/Preferences/Container.swift
 
+#if canImport(AppKit)
 import SwiftUI
 
 /**
@@ -96,3 +97,4 @@ extension HorizontalAlignment {
 
     static let settingsSectionLabel = HorizontalAlignment(SettingsSectionLabelAlignment.self)
 }
+#endif

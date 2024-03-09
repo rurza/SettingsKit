@@ -1,3 +1,4 @@
+#if canImport(AppKit)
 import Foundation
 import SwiftUI
 
@@ -77,3 +78,4 @@ internal final class PaneHostingController<Content: View>: NSHostingController<C
         fatalError("init(coder:) has not been implemented")
     }
 }
+#endif
