@@ -61,13 +61,7 @@ struct Localization {
 			// TODO: Use `.firstNonNil()` here when available.
 			.lazy
 			.map { Locale(identifier: $0) }
-            .first {
-                if #available(macOS 13, *) {
-                    return $0.language.languageCode?.identifier != nil
-                } else {
-                    return $0.languageCode != nil
-                }
-            }
+            .first { $0.languageIdentifier != nil }
 			?? .current
 
         let languageCode: String?
@@ -104,5 +98,15 @@ struct Localization {
 
 		return defaultLocalizedString
 	}
+}
+
+extension Locale {
+    var languageIdentifier: String? {
+        if #available(macOS 13, *) {
+            return language.languageCode?.identifier
+        } else {
+            return languageCode
+        }
+    }
 }
 #endif
